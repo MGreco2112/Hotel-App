@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -26,6 +27,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableGlobalMethodSecurity(
         prePostEnabled = true
 )
+@Component
 public class WebSecurityConfig {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -75,7 +77,5 @@ public class WebSecurityConfig {
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-
 
 }
