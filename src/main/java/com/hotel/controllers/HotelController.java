@@ -1,11 +1,13 @@
 package com.hotel.controllers;
 
 import com.hotel.models.Hotel;
+import com.hotel.models.rooms.DoubleRoom;
+import com.hotel.models.rooms.SingleRoom;
+import com.hotel.models.rooms.Suite;
 import com.hotel.payloads.request.NewHotelRequest;
+import com.hotel.payloads.request.NewRoomRequest;
 import com.hotel.payloads.request.UpdateHotelRequest;
-import com.hotel.repositories.HotelRepository;
-import com.hotel.repositories.UserRepository;
-import org.hibernate.annotations.NotFound;
+import com.hotel.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,12 @@ public class HotelController {
     private HotelRepository repository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SingleRoomRepository singleRoomRepository;
+    @Autowired
+    private DoubleRoomRepository doubleRoomRepository;
+    @Autowired
+    private SuiteRepository suiteRepository;
 
     @GetMapping
     public List<Hotel> findAllHotels() {
@@ -44,12 +52,62 @@ public class HotelController {
         return new ResponseEntity<>(repository.save(newHotel), HttpStatus.CREATED);
     }
 
+    @PostMapping("/singleRoom")
+    public ResponseEntity<SingleRoom> createSingleRoom(@RequestBody NewRoomRequest request) {
+        Hotel selHotel = repository.findById(request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        SingleRoom newRoom = new SingleRoom(
+                request.getRoomNumber(),
+                1,
+                selHotel
+        );
+
+        return new ResponseEntity<>(singleRoomRepository.save(newRoom), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/doubleRoom")
+    public ResponseEntity<DoubleRoom> createDoubleRoom(@RequestBody NewRoomRequest request) {
+        Hotel selHotel = repository.findById(request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        DoubleRoom newRoom = new DoubleRoom(
+                request.getRoomNumber(),
+                2,
+                selHotel
+        );
+
+        return new ResponseEntity<>(doubleRoomRepository.save(newRoom), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/suite")
+    public ResponseEntity<Suite> createSuite(@RequestBody NewRoomRequest request) {
+        Hotel selHotel = repository.findById(request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Suite newRoom = new Suite(
+                request.getRoomNumber(),
+                3,
+                selHotel
+        );
+
+        return new ResponseEntity<>(suiteRepository.save(newRoom), HttpStatus.CREATED);
+    }
+
+
+
     @PutMapping("/{id}")
     public ResponseEntity<Hotel> updateHotelById(@PathVariable Long id, @RequestBody UpdateHotelRequest updates) {
         Hotel selHotel = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (updates.getName() != null) {
             selHotel.setName(updates.getName());
+        }
+        if (updates.getSingleRooms() != null) {
+            selHotel.setSingleRooms(updates.getSingleRooms());
+        }
+        if (updates.getDoubleRooms() != null) {
+            selHotel.setDoubleRooms(updates.getDoubleRooms());
+        }
+        if (updates.getSuites() != null) {
+            selHotel.setSuites(updates.getSuites());
         }
 
         return ResponseEntity.ok(repository.save(selHotel));
