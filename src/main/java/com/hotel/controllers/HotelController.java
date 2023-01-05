@@ -2,6 +2,7 @@ package com.hotel.controllers;
 
 import com.hotel.models.Hotel;
 import com.hotel.models.rooms.DoubleRoom;
+import com.hotel.models.rooms.Room;
 import com.hotel.models.rooms.SingleRoom;
 import com.hotel.models.rooms.Suite;
 import com.hotel.payloads.request.NewHotelRequest;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -34,6 +36,17 @@ public class HotelController {
     @GetMapping
     public List<Hotel> findAllHotels() {
         return repository.findAll();
+    }
+
+    @GetMapping("/rooms")
+    public List<Room> findAllRooms() {
+        List<Room> rooms = new ArrayList<>();
+
+        rooms.addAll(singleRoomRepository.findAll());
+        rooms.addAll(doubleRoomRepository.findAll());
+        rooms.addAll(suiteRepository.findAll());
+
+        return rooms;
     }
 
     @GetMapping("/{id}")
@@ -61,6 +74,8 @@ public class HotelController {
                 1,
                 selHotel
         );
+
+        repository.save(selHotel);
 
         return new ResponseEntity<>(singleRoomRepository.save(newRoom), HttpStatus.CREATED);
     }
