@@ -1,10 +1,7 @@
 package com.hotel.controllers;
 
 import com.hotel.models.Hotel;
-import com.hotel.models.rooms.DoubleRoom;
-import com.hotel.models.rooms.Room;
-import com.hotel.models.rooms.SingleRoom;
-import com.hotel.models.rooms.Suite;
+import com.hotel.models.rooms.*;
 import com.hotel.payloads.request.NewHotelRequest;
 import com.hotel.payloads.request.NewRoomRequest;
 import com.hotel.payloads.request.UpdateHotelRequest;
@@ -39,8 +36,8 @@ public class HotelController {
     }
 
     @GetMapping("/rooms")
-    public List<Room> findAllRooms() {
-        List<Room> rooms = new ArrayList<>();
+    public List<RoomInterface> findAllRooms() {
+        List<RoomInterface> rooms = new ArrayList<>();
 
         rooms.addAll(singleRoomRepository.findAll());
         rooms.addAll(doubleRoomRepository.findAll());
