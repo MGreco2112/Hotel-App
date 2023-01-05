@@ -1,4 +1,4 @@
-package com.hotel.payloads.request.repositories;
+package com.hotel.repositories;
 
 import com.hotel.models.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;

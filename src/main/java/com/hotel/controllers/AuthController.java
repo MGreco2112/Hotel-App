@@ -8,8 +8,8 @@ import com.hotel.models.auth.User;
 import com.hotel.payloads.request.LoginRequest;
 import com.hotel.payloads.request.NewUserRequest;
 import com.hotel.payloads.response.JwtResponse;
-import com.hotel.payloads.request.repositories.RoleRepository;
-import com.hotel.payloads.request.repositories.UserRepository;
+import com.hotel.repositories.RoleRepository;
+import com.hotel.repositories.UserRepository;
 import com.hotel.payloads.response.MessageResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

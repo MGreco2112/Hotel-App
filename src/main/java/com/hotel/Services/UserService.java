@@ -2,7 +2,7 @@ package com.hotel.Services;
 
 import com.hotel.Security.Services.UserDetailsImpl;
 import com.hotel.models.auth.User;
-import com.hotel.payloads.request.repositories.UserRepository;
+import com.hotel.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
