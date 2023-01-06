@@ -2,11 +2,9 @@ package com.hotel.controllers;
 
 import com.hotel.Services.UserService;
 import com.hotel.models.Hotel;
+import com.hotel.models.auth.User;
 import com.hotel.models.rooms.*;
-import com.hotel.payloads.request.NewHotelRequest;
-import com.hotel.payloads.request.NewRoomRequest;
-import com.hotel.payloads.request.UpdateHotelRequest;
-import com.hotel.payloads.request.UpdateRoomRequest;
+import com.hotel.payloads.request.*;
 import com.hotel.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -98,6 +96,8 @@ public class HotelController {
                 selHotel
         );
 
+        selHotel.addSingleRoom(newRoom);
+
         repository.save(selHotel);
 
         return new ResponseEntity<>(singleRoomRepository.save(newRoom), HttpStatus.CREATED);
@@ -113,6 +113,10 @@ public class HotelController {
                 selHotel
         );
 
+        selHotel.addDoubleRoom(newRoom);
+
+        repository.save(selHotel);
+
         return new ResponseEntity<>(doubleRoomRepository.save(newRoom), HttpStatus.CREATED);
     }
 
@@ -125,6 +129,10 @@ public class HotelController {
                 3,
                 selHotel
         );
+
+        selHotel.addSuite(newRoom);
+
+        repository.save(selHotel);
 
         return new ResponseEntity<>(suiteRepository.save(newRoom), HttpStatus.CREATED);
     }
@@ -212,6 +220,95 @@ public class HotelController {
                 return new ResponseEntity<>("INVALID UPDATE OBJECT", HttpStatus.BAD_REQUEST);
             }
         }
+    }
+
+    @PutMapping("/room/bookRoom")
+    public ResponseEntity<User> bookFirstAvailableRoom(@RequestBody BookRoomRequest request) {
+        User selUser = userRepository.findById(request.getUser()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (request.getRoomNumber() != null) {
+            switch (request.getRoomNumber().substring(0, 1)) {
+                case "1" -> {
+                    SingleRoom selRoom = singleRoomRepository.findById(Long.parseLong(request.getRoomNumber())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+                    selRoom.setGuest(selUser);
+
+                    selRoom.setIsBooked(true);
+
+                    singleRoomRepository.save(selRoom);
+                }
+                case "2" -> {
+                    DoubleRoom selRoom = doubleRoomRepository.findById(Long.parseLong(request.getRoomNumber())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+                    selRoom.setGuest(selUser);
+
+                    selRoom.setIsBooked(true);
+
+                    doubleRoomRepository.save(selRoom);
+                }
+                case "3" -> {
+                    Suite selRoom = suiteRepository.findById(Long.parseLong(request.getRoomNumber())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+                    selRoom.setGuest(selUser);
+
+                    selRoom.setIsBooked(true);
+
+                    suiteRepository.save(selRoom);
+                }
+                default -> {return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
+            }
+        } else {
+            switch (request.getRoomType()) {
+                case "single" -> {
+                    List<SingleRoom> roomList = singleRoomRepository.findAvailableSingleRooms();
+
+                    if (roomList.size() > 0) {
+                        SingleRoom selRoom = roomList.get(0);
+
+                        selRoom.setGuest(selUser);
+
+                        selRoom.setIsBooked(true);
+
+                        singleRoomRepository.save(selRoom);
+                    } else {
+                        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+                    }
+                }
+                case "double" -> {
+                    List<DoubleRoom> roomList = doubleRoomRepository.findAvailableDoubleRooms();
+
+                    if (roomList.size() > 0) {
+                        DoubleRoom selRoom = roomList.get(0);
+
+                        selRoom.setGuest(selUser);
+
+                        selRoom.setIsBooked(true);
+
+                        doubleRoomRepository.save(selRoom);
+                    } else {
+                        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+                    }
+                }
+                case "suite" -> {
+                    List<Suite> roomList = suiteRepository.findAvailableSuites();
+
+                    if (roomList.size() > 0) {
+                        Suite selRoom = roomList.get(0);
+
+                        selRoom.setGuest(selUser);
+
+                        selRoom.setIsBooked(true);
+
+                        suiteRepository.save(selRoom);
+                    } else {
+                        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+                    }
+                }
+                case "default" -> {return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
+            }
+
+        }
+        return ResponseEntity.ok(userRepository.save(selUser));
     }
 
     @DeleteMapping("/{id}")

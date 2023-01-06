@@ -86,4 +86,12 @@ public class DoubleRoom implements RoomInterface {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+
+    public Boolean getIsBooked() {
+        return isBooked;
+    }
+
+    public void setIsBooked(Boolean booked) {
+        isBooked = booked;
+    }
 }
