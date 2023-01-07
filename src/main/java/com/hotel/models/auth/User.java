@@ -27,7 +27,6 @@ public class User {
     )
     Set<Role> roles;
 
-
     public User() {
 
     }

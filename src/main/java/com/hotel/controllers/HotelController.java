@@ -311,6 +311,36 @@ public class HotelController {
         return ResponseEntity.ok(userRepository.save(selUser));
     }
 
+    @PutMapping("/room/openSingleRoom")
+    public ResponseEntity<SingleRoom> openSingleRoom(@RequestBody BookRoomRequest request) {
+        SingleRoom selRoom = singleRoomRepository.findById(Long.parseLong(request.getRoomNumber())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        selRoom.setGuest(null);
+        selRoom.setIsBooked(false);
+
+        return ResponseEntity.ok(singleRoomRepository.save(selRoom));
+    }
+
+    @PutMapping("/room/openDoubleRoom")
+    public ResponseEntity<DoubleRoom> openDoubleRoom(@RequestBody BookRoomRequest request) {
+        DoubleRoom selRoom = doubleRoomRepository.findById(Long.parseLong(request.getRoomNumber())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        selRoom.setGuest(null);
+        selRoom.setIsBooked(false);
+
+        return ResponseEntity.ok(doubleRoomRepository.save(selRoom));
+    }
+
+    @PutMapping("/room/openSuite")
+    public ResponseEntity<Suite> openSuite(@RequestBody BookRoomRequest request) {
+        Suite selRoom = suiteRepository.findById(Long.parseLong(request.getRoomNumber())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        selRoom.setGuest(null);
+        selRoom.setIsBooked(false);
+
+        return ResponseEntity.ok(suiteRepository.save(selRoom));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteHotelById(@PathVariable Long id) {
         Hotel selHotel = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -366,5 +396,14 @@ public class HotelController {
         suiteRepository.delete(selRoom);
 
         return ResponseEntity.ok("Deleted Room");
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
+        User selUser = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        userRepository.delete(selUser);
+
+        return ResponseEntity.ok("Deleted User");
     }
 }
