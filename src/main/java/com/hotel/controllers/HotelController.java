@@ -9,6 +9,7 @@ import com.hotel.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,11 +34,13 @@ public class HotelController {
     private UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Hotel> findAllHotels() {
         return repository.findAll();
     }
 
     @GetMapping("/rooms")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<RoomInterface> findAllRooms() {
         List<RoomInterface> rooms = new ArrayList<>();
 
@@ -78,6 +81,7 @@ public class HotelController {
 
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Hotel> createHotel(@RequestBody NewHotelRequest newHotelReq) {
         Hotel newHotel = new Hotel(
                 newHotelReq.getName()
@@ -87,6 +91,7 @@ public class HotelController {
     }
 
     @PostMapping("/singleRoom")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SingleRoom> createSingleRoom(@RequestBody NewRoomRequest request) {
         Hotel selHotel = repository.findById(request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -104,6 +109,7 @@ public class HotelController {
     }
 
     @PostMapping("/doubleRoom")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DoubleRoom> createDoubleRoom(@RequestBody NewRoomRequest request) {
         Hotel selHotel = repository.findById(request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -121,6 +127,7 @@ public class HotelController {
     }
 
     @PostMapping("/suite")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Suite> createSuite(@RequestBody NewRoomRequest request) {
         Hotel selHotel = repository.findById(request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -140,6 +147,7 @@ public class HotelController {
 
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Hotel> updateHotelById(@PathVariable Long id, @RequestBody UpdateHotelRequest updates) {
         Hotel selHotel = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -160,6 +168,7 @@ public class HotelController {
     }
 
     @PutMapping("/room/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateRoomById(@PathVariable Long id, @RequestBody UpdateRoomRequest updates) {
         switch (updates.getRoomType()) {
             case "single" -> {
@@ -342,6 +351,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteHotelById(@PathVariable Long id) {
         Hotel selHotel = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -357,6 +367,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/room/single/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteSingleRoomById(@PathVariable Long id) {
         SingleRoom selRoom = singleRoomRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -371,6 +382,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/room/double/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteDoubleRoomById(@PathVariable Long id) {
         DoubleRoom selRoom = doubleRoomRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -385,6 +397,7 @@ public class HotelController {
     }
 
     @DeleteMapping("/room/suite/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteSuiteById(@PathVariable Long id) {
         Suite selRoom = suiteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
