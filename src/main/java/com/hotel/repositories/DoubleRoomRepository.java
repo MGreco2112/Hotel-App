@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface DoubleRoomRepository extends JpaRepository<DoubleRoom, Long> {
-    @Query(value = "SELECT * FROM double_room WHERE room_number = :query", nativeQuery = true)
-    Optional<DoubleRoom> findRoomByRoomNumber(@Param("query") String roomNumber);
+    @Query(value = "SELECT * FROM double_room WHERE number = :room AND hotel_id = :hotel", nativeQuery = true)
+    Optional<DoubleRoom> findRoomByRoomNumber(@Param("room") String roomNumber, @Param("hotel") Long hotelId);
 
-    @Query(value = "SELECT * FROM double_room WHERE is_booked = false", nativeQuery = true)
-    List<DoubleRoom> findAvailableDoubleRooms();
+    @Query(value = "SELECT * FROM double_room WHERE is_booked = false AND hotel_id = :hotel", nativeQuery = true)
+    List<DoubleRoom> findAvailableDoubleRooms(@Param("hotel") Long hotelId);
 }

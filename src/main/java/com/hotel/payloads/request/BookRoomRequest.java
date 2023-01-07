@@ -3,7 +3,6 @@ package com.hotel.payloads.request;
 import com.hotel.models.auth.User;
 
 public class BookRoomRequest {
-    private Long userId;
     private String roomType;
     private String roomNumber;
     private Long hotelId;
@@ -11,19 +10,10 @@ public class BookRoomRequest {
     public BookRoomRequest() {
     }
 
-    public BookRoomRequest(Long userId, String roomType, String roomNumber, Long hotelId) {
-        this.userId = userId;
+    public BookRoomRequest(String roomType, String roomNumber, Long hotelId) {
         this.roomType = roomType;
         this.roomNumber = roomNumber;
         this.hotelId = hotelId;
-    }
-
-    public Long getUser() {
-        return userId;
-    }
-
-    public void setUser(Long userId) {
-        this.userId = userId;
     }
 
     public String getRoomType() {

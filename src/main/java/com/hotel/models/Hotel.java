@@ -37,7 +37,7 @@ public class Hotel {
     }
 
     public Hotel(String name) {
-
+        this.name = name;
     }
 
     public Long getId() {

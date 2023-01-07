@@ -16,7 +16,7 @@ public class SingleRoom implements RoomInterface {
 
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("rooms")
+    @JsonIgnoreProperties("singleRooms")
     private Hotel hotel;
 
     @OneToOne
