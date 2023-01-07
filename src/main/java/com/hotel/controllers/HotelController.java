@@ -40,6 +40,17 @@ public class HotelController {
         return repository.findAll();
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<User> findLoggedInUser() {
+        User selUser = userService.getCurrentUser();
+
+        if (selUser == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+        return ResponseEntity.ok(selUser);
+    }
+
     @GetMapping("/rooms")
     @PreAuthorize("hasRole('ADMIN')")
     public List<RoomInterface> findAllRooms() {

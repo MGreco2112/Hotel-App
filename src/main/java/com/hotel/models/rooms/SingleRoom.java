@@ -21,6 +21,7 @@ public class SingleRoom implements RoomInterface {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("single_room")
     private User guest;
 
     public SingleRoom(){}

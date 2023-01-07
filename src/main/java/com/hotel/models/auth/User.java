@@ -1,6 +1,10 @@
 package com.hotel.models.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hotel.models.rooms.DoubleRoom;
+import com.hotel.models.rooms.SingleRoom;
+import com.hotel.models.rooms.Suite;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -30,6 +34,22 @@ public class User {
     public User() {
 
     }
+
+    @OneToOne
+    @JoinColumn(name = "single_room_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("guest")
+    private SingleRoom singleRoom;
+
+    @OneToOne
+    @JoinColumn(name = "double_room_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("guest")
+    private DoubleRoom doubleRoom;
+
+    @OneToOne
+    @JoinColumn(name = "suite_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("guest")
+    private Suite suite;
+
 
     public User(String username, String password) {
         this.username = username;
@@ -66,5 +86,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public SingleRoom getSingleRoom() {
+        return singleRoom;
+    }
+
+    public void setSingleRoom(SingleRoom singleRoom) {
+        this.singleRoom = singleRoom;
+    }
+
+    public DoubleRoom getDoubleRoom() {
+        return doubleRoom;
+    }
+
+    public void setDoubleRoom(DoubleRoom doubleRoom) {
+        this.doubleRoom = doubleRoom;
+    }
+
+    public Suite getSuite() {
+        return suite;
+    }
+
+    public void setSuite(Suite suite) {
+        this.suite = suite;
     }
 }
