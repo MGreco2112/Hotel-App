@@ -2,6 +2,7 @@ package com.hotel.models.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.hotel.models.rooms.DoubleRoom;
 import com.hotel.models.rooms.SingleRoom;
 import com.hotel.models.rooms.Suite;
@@ -35,19 +36,19 @@ public class User {
 
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "single_room_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("guest")
+    @JsonIncludeProperties("number")
     private SingleRoom singleRoom;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "double_room_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("guest")
+    @JsonIncludeProperties("number")
     private DoubleRoom doubleRoom;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "suite_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("guest")
+    @JsonIncludeProperties("number")
     private Suite suite;
 
 

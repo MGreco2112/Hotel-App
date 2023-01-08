@@ -5,8 +5,8 @@ import com.hotel.models.Hotel;
 import com.hotel.models.auth.User;
 import com.hotel.models.rooms.*;
 import com.hotel.payloads.request.*;
+import com.hotel.payloads.response.UserResponse;
 import com.hotel.repositories.*;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,14 +41,19 @@ public class HotelController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> findLoggedInUser() {
+    public ResponseEntity<UserResponse> findLoggedInUser() {
         User selUser = userService.getCurrentUser();
 
         if (selUser == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok(selUser);
+        return ResponseEntity.ok(new UserResponse(
+                selUser.getUsername(),
+                selUser.getSingleRoom() != null ? selUser.getSingleRoom().getNumber() : null,
+                selUser.getDoubleRoom() != null ? selUser.getDoubleRoom().getNumber() : null,
+                selUser.getSuite() != null ? selUser.getSuite().getNumber() : null
+        ));
     }
 
     @GetMapping("/rooms")
@@ -249,27 +254,26 @@ public class HotelController {
         }
     }
 
-    @PutMapping("/room/bookRoom/{userId}")
-    public ResponseEntity<User> bookFirstAvailableRoom(@PathVariable Long userId, @RequestBody BookRoomRequest request) {
+    @PutMapping("/room/bookRoom")
+    public ResponseEntity<UserResponse> bookFirstAvailableRoom(@RequestBody BookRoomRequest request) {
         User selUser = userService.getCurrentUser();
 
         if (selUser == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
-//        User selUser = userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
         if (request.getRoomNumber() != null) {
             switch (request.getRoomNumber().substring(0, 1)) {
                 case "1" -> {
-                    System.out.println(1);
                     SingleRoom selRoom = singleRoomRepository.findByRoomNumber(request.getRoomNumber(), request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-                    System.out.println(2);
+
                     selRoom.setGuest(selUser);
-                    System.out.println(3);
+
                     selRoom.setIsBooked(true);
-                    System.out.println(4);
-                    singleRoomRepository.save(selRoom);
+
+                    SingleRoom savedRoom = singleRoomRepository.save(selRoom);
+
+                    selUser.setSingleRoom(savedRoom);
                 }
                 case "2" -> {
                     DoubleRoom selRoom = doubleRoomRepository.findRoomByRoomNumber(request.getRoomNumber(), request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -278,7 +282,9 @@ public class HotelController {
 
                     selRoom.setIsBooked(true);
 
-                    doubleRoomRepository.save(selRoom);
+                    DoubleRoom savedRoom = doubleRoomRepository.save(selRoom);
+
+                    selUser.setDoubleRoom(savedRoom);
                 }
                 case "3" -> {
                     Suite selRoom = suiteRepository.findRoomByRoomNumber(request.getRoomNumber(), request.getHotelId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -287,7 +293,9 @@ public class HotelController {
 
                     selRoom.setIsBooked(true);
 
-                    suiteRepository.save(selRoom);
+                    Suite savedRoom = suiteRepository.save(selRoom);
+
+                    selUser.setSuite(savedRoom);
                 }
                 default -> {return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
             }
@@ -303,7 +311,9 @@ public class HotelController {
 
                         selRoom.setIsBooked(true);
 
-                        singleRoomRepository.save(selRoom);
+                        SingleRoom savedRoom = singleRoomRepository.save(selRoom);
+
+                        selUser.setSingleRoom(savedRoom);
                     } else {
                         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
                     }
@@ -318,7 +328,9 @@ public class HotelController {
 
                         selRoom.setIsBooked(true);
 
-                        doubleRoomRepository.save(selRoom);
+                        DoubleRoom savedRoom = doubleRoomRepository.save(selRoom);
+
+                        selUser.setDoubleRoom(savedRoom);
                     } else {
                         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
                     }
@@ -333,7 +345,9 @@ public class HotelController {
 
                         selRoom.setIsBooked(true);
 
-                        suiteRepository.save(selRoom);
+                        Suite savedRoom = suiteRepository.save(selRoom);
+
+                        selUser.setSuite(savedRoom);
                     } else {
                         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
                     }
@@ -342,8 +356,15 @@ public class HotelController {
             }
 
         }
-        System.out.println(5);
-        return ResponseEntity.ok(null);
+
+        selUser = userRepository.save(selUser);
+
+        return ResponseEntity.ok(new UserResponse(
+                selUser.getUsername(),
+                selUser.getSingleRoom() != null ? selUser.getSingleRoom().getNumber() : null,
+                selUser.getDoubleRoom() != null ? selUser.getDoubleRoom().getNumber() : null,
+                selUser.getSuite() != null ? selUser.getSuite().getNumber() : null
+        ));
     }
 
     @PutMapping("/room/openSingleRoom")
