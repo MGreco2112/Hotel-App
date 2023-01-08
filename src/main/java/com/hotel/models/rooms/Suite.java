@@ -22,7 +22,7 @@ public class Suite implements RoomInterface {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("suite")
+    @JsonIgnoreProperties({"singleRoom", "doubleRoom", "suite", "roles"})
     private User guest;
 
     public Suite(){};

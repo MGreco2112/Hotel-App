@@ -21,7 +21,7 @@ public class DoubleRoom implements RoomInterface {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("double_room")
+    @JsonIgnoreProperties({"singleRoom", "doubleRoom", "suite", "roles"})
     private User guest;
 
     public DoubleRoom(){};

@@ -255,7 +255,7 @@ public class HotelController {
     }
 
     @PutMapping("/room/bookRoom")
-    public ResponseEntity<UserResponse> bookFirstAvailableRoom(@RequestBody BookRoomRequest request) {
+    public ResponseEntity<User> bookFirstAvailableRoom(@RequestBody BookRoomRequest request) {
         User selUser = userService.getCurrentUser();
 
         if (selUser == null) {
@@ -357,14 +357,16 @@ public class HotelController {
 
         }
 
-        selUser = userRepository.save(selUser);
+//        selUser = userRepository.save(selUser);
 
-        return ResponseEntity.ok(new UserResponse(
-                selUser.getUsername(),
-                selUser.getSingleRoom() != null ? selUser.getSingleRoom().getNumber() : null,
-                selUser.getDoubleRoom() != null ? selUser.getDoubleRoom().getNumber() : null,
-                selUser.getSuite() != null ? selUser.getSuite().getNumber() : null
-        ));
+//        return ResponseEntity.ok(new UserResponse(
+//                selUser.getUsername(),
+//                selUser.getSingleRoom() != null ? selUser.getSingleRoom().getNumber() : null,
+//                selUser.getDoubleRoom() != null ? selUser.getDoubleRoom().getNumber() : null,
+//                selUser.getSuite() != null ? selUser.getSuite().getNumber() : null
+//        ));
+
+        return ResponseEntity.ok(userRepository.save(selUser));
     }
 
     @PutMapping("/room/openSingleRoom")

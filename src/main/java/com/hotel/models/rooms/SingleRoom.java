@@ -1,5 +1,6 @@
 package com.hotel.models.rooms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hotel.models.Hotel;
 import com.hotel.models.auth.User;
@@ -21,7 +22,8 @@ public class SingleRoom implements RoomInterface {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("single_room")
+    @JsonIgnoreProperties({"singleRoom", "doubleRoom", "suite", "roles"})
+//    @JsonIgnore
     private User guest;
 
     public SingleRoom(){}

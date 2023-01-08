@@ -1,0 +1,215 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 98566144 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3469), pid=15664, tid=17652
+#
+# JRE version:  (17.0+35) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17+35, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfile.encoding=windows-1252 -Duser.country=US -Duser.language=en -Duser.variant com.hotel.HotelApplication
+
+Host: AMD Ryzen 5 5600H with Radeon Graphics         , 12 cores, 5G,  Windows 10 , 64 bit Build 19041 (10.0.19041.2364)
+Time: Sun Jan  8 13:03:23 2023 Eastern Standard Time elapsed time: 0.803577 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001f4aaded460):  JavaThread "Unknown thread" [_thread_in_vm, id=17652, stack(0x00000059ba800000,0x00000059ba900000)]
+
+Stack: [0x00000059ba800000,0x00000059ba900000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x674afa]
+V  [jvm.dll+0x82eb44]
+V  [jvm.dll+0x8302ee]
+V  [jvm.dll+0x830953]
+V  [jvm.dll+0x245335]
+V  [jvm.dll+0x671ae9]
+V  [jvm.dll+0x6665b2]
+V  [jvm.dll+0x303e3b]
+V  [jvm.dll+0x30b376]
+V  [jvm.dll+0x35b30e]
+V  [jvm.dll+0x35b53f]
+V  [jvm.dll+0x2dad78]
+V  [jvm.dll+0x2dbce4]
+V  [jvm.dll+0x8006a1]
+V  [jvm.dll+0x369081]
+V  [jvm.dll+0x7dfb6c]
+V  [jvm.dll+0x3eb9bf]
+V  [jvm.dll+0x3ed6f1]
+C  [jli.dll+0x5277]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17614]
+C  [ntdll.dll+0x526a1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffd35c74e58, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001f4aae22760 GCTaskThread "GC Thread#0" [stack: 0x00000059ba900000,0x00000059baa00000] [id=13396]
+  0x000001f4aae2f370 ConcurrentGCThread "G1 Main Marker" [stack: 0x00000059baa00000,0x00000059bab00000] [id=29476]
+  0x000001f4aae308f0 ConcurrentGCThread "G1 Conc#0" [stack: 0x00000059bab00000,0x00000059bac00000] [id=17896]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffd3544b7f7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001f4aade87c0] Heap_lock - owner thread: 0x000001f4aaded460
+
+Heap address: 0x00000000a2400000, size: 1500 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 0.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x00000000a2400000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffd3582dfc9]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (1 events):
+Event: 0.450 Loaded shared library C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\java.dll
+
+
+Dynamic libraries:
+0x00007ff643b70000 - 0x00007ff643b7e000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\java.exe
+0x00007ffdc4a70000 - 0x00007ffdc4c68000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ffdc3a30000 - 0x00007ffdc3aef000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ffdc2550000 - 0x00007ffdc2822000 	C:\Windows\System32\KERNELBASE.dll
+0x0000000060960000 - 0x0000000060c90000 	C:\Program Files\Norton Security\NortonData\22.21.9.25\Definitions\IPSDefs\20230106.063\IPSEng64.dll
+0x00007ffdc3390000 - 0x00007ffdc343e000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ffdc2cd0000 - 0x00007ffdc2d6e000 	C:\Windows\System32\msvcrt.dll
+0x00007ffdc3690000 - 0x00007ffdc372c000 	C:\Windows\System32\sechost.dll
+0x00007ffdc34f0000 - 0x00007ffdc3615000 	C:\Windows\System32\RPCRT4.dll
+0x00007ffdc3380000 - 0x00007ffdc3388000 	C:\Windows\System32\PSAPI.DLL
+0x00007ffdc21d0000 - 0x00007ffdc22d0000 	C:\Windows\System32\ucrtbase.dll
+0x00007ffd94f30000 - 0x00007ffd94f48000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\jli.dll
+0x00007ffd969f0000 - 0x00007ffd96a09000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\VCRUNTIME140.dll
+0x00007ffdc3ca0000 - 0x00007ffdc3e41000 	C:\Windows\System32\USER32.dll
+0x00007ffdc23c0000 - 0x00007ffdc23e2000 	C:\Windows\System32\win32u.dll
+0x00007ffdc38c0000 - 0x00007ffdc38eb000 	C:\Windows\System32\GDI32.dll
+0x00007ffdc29a0000 - 0x00007ffdc2aaf000 	C:\Windows\System32\gdi32full.dll
+0x00007ffdc22d0000 - 0x00007ffdc236d000 	C:\Windows\System32\msvcp_win.dll
+0x00007ffdae8e0000 - 0x00007ffdaeb7a000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e\COMCTL32.dll
+0x00007ffdc2c90000 - 0x00007ffdc2cc2000 	C:\Windows\System32\IMM32.DLL
+0x00007ffda6910000 - 0x00007ffda691c000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\vcruntime140_1.dll
+0x00007ffd88010000 - 0x00007ffd880a1000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\msvcp140.dll
+0x00007ffd35160000 - 0x00007ffd35da6000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\server\jvm.dll
+0x00007ffda89f0000 - 0x00007ffda89f9000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ffdbafe0000 - 0x00007ffdbafea000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ffdc3620000 - 0x00007ffdc368b000 	C:\Windows\System32\WS2_32.dll
+0x00007ffdb8670000 - 0x00007ffdb8697000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ffdc09b0000 - 0x00007ffdc09c2000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007ffda67b0000 - 0x00007ffda67ba000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\jimage.dll
+0x00007ffdbffd0000 - 0x00007ffdc01b4000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007ffdac690000 - 0x00007ffdac6c5000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007ffdc2830000 - 0x00007ffdc28b2000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007ffd96be0000 - 0x00007ffd96c05000 	C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin;C:\Windows\SYSTEM32;C:\Program Files\Norton Security\NortonData\22.21.9.25\Definitions\IPSDefs\20230106.063;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e;C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin\server
+
+VM Arguments:
+jvm_args: -Dfile.encoding=windows-1252 -Duser.country=US -Duser.language=en -Duser.variant 
+java_command: com.hotel.HotelApplication
+java_class_path (initial): C:\Users\Owner\IdeaProjects\hotel\build\classes\java\main;C:\Users\Owner\IdeaProjects\hotel\build\resources\main;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-data-jpa\3.0.1\a68c2e57bd3a0c5bdf7e4de6c0d563aad38d3f47\spring-boot-starter-data-jpa-3.0.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-web\3.0.1\1d99ce519a0fe66f15dc9bbdc2507a8d0a01690\spring-boot-starter-web-3.0.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-security\3.0.1\7f9704fb439791ce7bfb100525b76d702d9edc38\spring-boot-starter-security-3.0.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-validation\3.0.1\ac86700d30d7ccaba6a2d6a019b83f716f4f278a\spring-boot-starter-validation-3.0.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\io.jsonwebtoken\jjwt\0.9.1\54d2abfc3e63a28824d35bf600d6a5d627da681a\jjwt-0.9.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\javax.xml.bind\jaxb-api\2.4.0-b180830.0359\b54184b7dcab2031add3f525550c7f1b7e12209d\jaxb-api-2.4.0-b180830.0359.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\com.mysql\mysql-connector-j\8.0.31\3fd5850719d7e82d50705d34cc6a0037fab5731f\mysql-connector-j-8.0.31.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-aop\3.0.1\489dae5b71e160d74190738b0419c2cecd7f7e95\spring-boot-starter-aop-3.0.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-jdbc\3.0.1\a1121611438c39fdcad2c73da7564d851b386a75\spring-boot-starter-jdbc-3.0.1.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.hibernate.orm\hibernate-core\6.1.6.Final\e2ff7dfc50d16377da7bedbf48a0a2e9db30ac66\hibernate-core-6.1.6.Final.jar;C:\Users\Owner\jdk-16.0.2\caches\modules-2\files-2.1\org.springframework.data\spring-data-jp
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 10                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 98566144                                  {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 1572864000                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 1572864000                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=C:\Program Files\Eclipse Foundation\jdk-17.0.0.35-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\nodejs\;C:\Program Files\PuTTY\;C:\Program Files\PowerShell\7\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7-preview\preview;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Owner\AppData\Local\Microsoft\WindowsApps;;C:\Users\Owner\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Owner\AppData\Roaming\npm
+USERNAME=Owner
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.2364)
+OS uptime: 23 days 21:04 hours
+
+CPU: total 12 (initial active 12) (12 cores per cpu, 2 threads per core) family 25 model 80 stepping 0 microcode 0x0, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4a, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt
+
+Memory: 4k page, system-wide physical 5996M (76M free)
+TotalPageFile size 24428M (AvailPageFile size 26M)
+current process WorkingSet (physical memory assigned to process): 10M, peak: 10M
+current process commit charge ("private bytes"): 64M, peak: 158M
+
+vm_info: OpenJDK 64-Bit Server VM (17+35) for windows-amd64 JRE (17+35), built on Sep 14 2021 17:27:39 by "" with MS VC++ 16.7 (VS2019)
+
+END.
