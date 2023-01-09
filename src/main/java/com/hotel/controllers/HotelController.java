@@ -74,27 +74,27 @@ public class HotelController {
 
         return ResponseEntity.ok(selHotel);
     }
-//
-//    @GetMapping("/room/single/{number}")
-//    public ResponseEntity<SingleRoom> findSingleRoomByNumber(@PathVariable String number) {
-//        SingleRoom selRoom = singleRoomRepository.findByRoomNumber(number).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//        return ResponseEntity.ok(selRoom);
-//    }
-//
-//    @GetMapping("/room/double/{number}")
-//    public ResponseEntity<DoubleRoom> findDoubleRoomByNumber(@PathVariable String number) {
-//        DoubleRoom selRoom = doubleRoomRepository.findRoomByRoomNumber(number).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//        return ResponseEntity.ok(selRoom);
-//    }
-//
-//    @GetMapping("/room/suite/{number}")
-//    public ResponseEntity<Suite> findSuiteByNumber(@PathVariable String number) {
-//        Suite selRoom = suiteRepository.findRoomByRoomNumber(number).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//        return ResponseEntity.ok(selRoom);
-//    }
+
+    @GetMapping("/room/single/{id}")
+    public ResponseEntity<SingleRoom> findSingleRoomByNumber(@PathVariable Long id) {
+        SingleRoom selRoom = singleRoomRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return ResponseEntity.ok(selRoom);
+    }
+
+    @GetMapping("/room/double/{id}")
+    public ResponseEntity<DoubleRoom> findDoubleRoomByNumber(@PathVariable Long id) {
+        DoubleRoom selRoom = doubleRoomRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return ResponseEntity.ok(selRoom);
+    }
+
+    @GetMapping("/room/suite/{id}")
+    public ResponseEntity<Suite> findSuiteByNumber(@PathVariable Long id) {
+        Suite selRoom = suiteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return ResponseEntity.ok(selRoom);
+    }
 
 
     @PostMapping
