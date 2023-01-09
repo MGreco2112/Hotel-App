@@ -34,12 +34,6 @@ public class HotelController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<Hotel> findAllHotels() {
-        return repository.findAll();
-    }
-
     @GetMapping("/user")
     public ResponseEntity<UserResponse> findLoggedInUser() {
         User selUser = userService.getCurrentUser();
@@ -54,6 +48,20 @@ public class HotelController {
                 selUser.getDoubleRoom() != null ? selUser.getDoubleRoom().getNumber() : null,
                 selUser.getSuite() != null ? selUser.getSuite().getNumber() : null
         ));
+    }
+
+    @GetMapping("/user/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        User selUser = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return ResponseEntity.ok(selUser);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Hotel> findAllHotels() {
+        return repository.findAll();
     }
 
     @GetMapping("/rooms")
