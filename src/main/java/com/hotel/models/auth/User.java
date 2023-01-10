@@ -1,7 +1,6 @@
 package com.hotel.models.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.hotel.models.rooms.DoubleRoom;
 import com.hotel.models.rooms.SingleRoom;

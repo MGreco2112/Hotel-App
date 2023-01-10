@@ -66,8 +66,8 @@ public class HotelController {
 
     @GetMapping("/rooms")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<RoomInterface> findAllRooms() {
-        List<RoomInterface> rooms = new ArrayList<>();
+    public List<Room> findAllRooms() {
+        List<Room> rooms = new ArrayList<>();
 
         rooms.addAll(singleRoomRepository.findAll());
         rooms.addAll(doubleRoomRepository.findAll());
